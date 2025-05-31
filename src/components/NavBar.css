@@ -1,22 +1,19 @@
 nav {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: 1000;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
   position: fixed;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.215);
-  backdrop-filter: blur(10px);
+  background-color: #1f192e;
 }
 
 nav > :last-child {
   margin-right: 100px;
-}
-
-
-nav img {
-  height: 40px;
-  position: relative;
 }
 
 nav li {
@@ -35,7 +32,7 @@ nav ul {
 .nav-links a {
   position: relative;
   text-decoration: none;
-  color: rgba(230, 230, 230, 0.675);
+  color: rgba(209, 209, 209, 0.518);
   font-weight: 400;
   transition: color 0.3s ease;
   font-size: 20px;
@@ -49,7 +46,7 @@ nav ul {
   left: 0;
   bottom: -5px;
   background-color: #7674ff;
-  transition: 0.15s;
+  transition: 0.5s;
 }
 
 .nav-links a:hover, a.active {
@@ -58,5 +55,20 @@ nav ul {
 
 .nav-links a:hover::after, a.active::after {
   width: 100%;
-  transition: 0.25s ease-in;
+  transition: 0.15s ease-in;
+}
+
+.nav-logo a {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-left: 50px;
+  color: #ffffff;
+  transition: 0.3s ease;
+}
+
+.nav-logo a:hover {
+  color: #7674ff;
 }

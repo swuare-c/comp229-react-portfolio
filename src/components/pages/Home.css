@@ -1,0 +1,117 @@
+.home-section {
+    padding-top: 150px;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+.welcome-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 750px;
+    width: 75%;
+}
+
+.welcome-container h1 {
+    font-size: 7.5rem;
+    margin: 0;
+    padding-top: 0px;
+    margin-top: -45px;
+}
+
+.welcome-container h2 {
+    font-size: 5.5rem;
+    margin: 0;
+    padding-top: 20px;
+}
+
+.welcome-container h3 {
+    font-size: 3.5rem;
+    margin: 0;
+    color: #7674ff;
+    margin-top: -25px;
+}
+
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.welcome-container h1 {
+    animation: fadeInRight 0.6s ease-in-out backwards;
+}
+
+.welcome-container h2 {
+    animation: fadeInLeft 0.6s ease-in-out backwards;
+}
+
+.welcome-container h3 {
+    animation: fadeInLeft 0.6s ease-in-out backwards;
+}
+
+.welcome-container h1, .welcome-container h2, .welcome-container h3{
+    transition: transform 0.6s ease;
+    will-change: transform;
+}
+
+.welcome-container h1:hover, .welcome-container h2:hover, .welcome-container h3:hover{
+    transform: scaleX(1.05);
+    box-shadow: #1c1c313e;
+    transition: transform 0.3s ease;
+}
+
+.home-buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 60px;
+    gap: 50px;
+    font-size: 2rem;
+    font-weight: 400;
+}
+
+.home-buttons .btn-primary {
+    padding: 8px 16px;
+    background-color: #7674ff;
+    border-radius: 5px;
+    overflow: hidden;
+    transition: 0.1s ease;
+    animation: fadeInLeft 0.6s ease-in-out backwards;
+}
+
+.home-buttons .btn-primary:hover {
+    transform: scaleX(1.05);
+    box-shadow: #1c1c313e;
+}
+
+.home-buttons .btn-secondary {
+    padding: 8px 16px;
+    border: solid 2px #7674ff;
+    border-radius: 5px;
+    overflow: hidden;
+    transition: 0.1s ease;
+    animation: fadeInRight 0.6s ease-in-out backwards;
+}
+
+.home-buttons .btn-secondary:hover {
+    transform: scaleX(1.05);
+    box-shadow: #1c1c313e;
+}
