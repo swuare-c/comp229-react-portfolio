@@ -11,7 +11,7 @@ const AboutMe = () => {
             I enjoy solving problems and creating intuitive user experiences. I am currently pursuing my studies at
             Centennial College and am actively seeking opportunities to grow and contribute in the tech industry.
           </p>
-          <a href="/Christian_Khan_Resume.pdf" download="Christian_Khan_Resume.pdf" className="about-me-resume-link">Download Resume</a>
+          <a href="/Christian Khan Resume.pdf" download="Christian Khan Resume.pdf" className="about-me-resume-link">Download Resume</a>
         </div>
     </section>)
 }
