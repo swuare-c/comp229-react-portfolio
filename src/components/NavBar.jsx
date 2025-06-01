@@ -3,6 +3,7 @@ import './NavBar.css';
 
 const NavBar = () => {
   return (
+    //Navbar component with links to different pages
     <nav>
       <div>
           <div className='nav-logo'><NavLink to="/">CK</NavLink></div>
