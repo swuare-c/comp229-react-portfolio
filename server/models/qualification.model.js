@@ -7,4 +7,4 @@ const QualificationSchema = new mongoose.Schema({
   endDate: Date
 });
 
-export default mongoose.model("Education", EducationSchema);
+export default mongoose.model("Qualification", QualificationSchema);
