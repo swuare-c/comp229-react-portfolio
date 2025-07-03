@@ -3,11 +3,11 @@ import qualificationCtrl from "../controllers/qualification.controller.js";
 
 const router = express.Router();
 
-router.route("/api/qualifications")
+router.route("/")
   .post(qualificationCtrl.create)
   .get(qualificationCtrl.list);
 
-router.route("/api/qualifications/:qualificationId")
+router.route("/:qualificationId")
   .get(qualificationCtrl.read)
   .put(qualificationCtrl.update)
   .delete(qualificationCtrl.remove);

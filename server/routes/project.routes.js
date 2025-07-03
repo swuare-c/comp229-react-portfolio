@@ -3,11 +3,11 @@ import projectCtrl from "../controllers/project.controller.js";
 
 const router = express.Router();
 
-router.route("/api/projects")
+router.route("/")
   .post(projectCtrl.create)
   .get(projectCtrl.list);
 
-router.route("/api/projects/:projectId")
+router.route("/:projectId")
   .get(projectCtrl.read)
   .put(projectCtrl.update)
   .delete(projectCtrl.remove);

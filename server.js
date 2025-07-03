@@ -1,14 +1,14 @@
 import config from "./config/config.js";
 import app from "./server/express.js";
 import mongoose from "mongoose";
-import contactRoutes from "./routes/contact.routes.js";
-import projectRoutes from "./routes/project.routes.js";
-import educationRoutes from "./routes/education.routes.js";
-import userRoutes from "./routes/user.routes.js";
+import contactRoutes from "./server/routes/contact.routes.js";
+import projectRoutes from "./server/routes/project.routes.js";
+import qualificationRoutes from "./server/routes/qualification.routes.js";
+import userRoutes from "./server/routes/user.routes.js";
 
 app.use("/api/contacts", contactRoutes);
 app.use("/api/projects", projectRoutes);
-app.use("/api/education", educationRoutes);
+app.use("/api/qualification", qualificationRoutes);
 app.use("/api/users", userRoutes);
 
 mongoose.Promise = global.Promise;
