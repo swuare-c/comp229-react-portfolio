@@ -1,4 +1,4 @@
-.contact-form-section {
+.qualification-form-section {
   padding-top: 150px;
   min-height: 100vh;
   display: flex;
@@ -6,8 +6,8 @@
   align-items: center;
 }
 
-.contact-form-container {
-  width: 500px;
+.qualification-form-container {
+  width: 400px;
   padding: 40px;
   border-radius: 12px;
   background: rgba(255, 255, 255, 0.05);
@@ -16,13 +16,12 @@
   text-align: center;
 }
 
-.contact-form-container h2 {
+.qualification-form-container h2 {
   font-size: 2.5rem;
   margin-bottom: 20px;
 }
 
-.contact-form input,
-.contact-form textarea {
+.qualification-form input {
   width: 100%;
   padding: 12px;
   margin: 12px 0;
@@ -33,17 +32,11 @@
   font-size: 1rem;
 }
 
-.contact-form textarea {
-  resize: vertical;
-  min-height: 100px;
-}
-
-.contact-form input::placeholder,
-.contact-form textarea::placeholder {
+.qualification-form input::placeholder {
   color: #dddddd;
 }
 
-.contact-form button {
+.qualification-form button {
   width: 100%;
   padding: 14px;
   margin-top: 20px;
@@ -57,7 +50,7 @@
   transition: all 0.3s ease;
 }
 
-.contact-form button:hover {
+.qualification-form button:hover {
   transform: scale(1.03);
   background-color: #5b59e0;
 }
