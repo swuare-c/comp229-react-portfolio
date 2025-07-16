@@ -26,22 +26,23 @@ const Signin = () => {
         body: JSON.stringify({
           email: values.email,
           password: values.password
-        })
+        }),
+        credentials: 'include'
       });
 
       const data = await response.json();
 
       if (!response.ok) {
-        setValues({ ...values, error: data.error || 'Signin failed', success: false });
+        setValues(prev => ({ ...prev, error: data.error || 'Signin failed' }));
       } else {
         if (typeof window !== 'undefined') {
           sessionStorage.setItem('jwt', JSON.stringify(data));
         }
         setValues({ email: '', password: '', error: '', success: true });
-        navigate('/'); // redirect to homepage after successful login
+        navigate('/');  // redirect after successful login
       }
     } catch (err) {
-      setValues({ ...values, error: 'Network error, please try again.', success: false });
+      setValues(prev => ({ ...prev, error: 'Network error. Please try again.' }));
     }
   };
 
