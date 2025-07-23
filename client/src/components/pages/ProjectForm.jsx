@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { isAuthenticated } from '../auth/authHelper'; // To get token for auth
 import './ProjectForm.css';
 
 const ProjectForm = () => {
@@ -9,20 +10,26 @@ const ProjectForm = () => {
     link: '',
     success: false,
     error: '',
+    loading: false,
   });
 
-  const handleChange = (name) => (e) => {
-    setValues({ ...values, [name]: e.target.value });
+  const { token } = isAuthenticated() || {};
+
+  const handleChange = (field) => (e) => {
+    setValues({ ...values, [field]: e.target.value, success: false, error: '' });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setValues({ ...values, success: false, error: '' });
+    setValues({ ...values, loading: true, success: false, error: '' });
 
     try {
       const response = await fetch('/api/projects', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          ...(token && { Authorization: `Bearer ${token}` }),
+        },
         body: JSON.stringify({
           title: values.title,
           description: values.description,
@@ -30,10 +37,11 @@ const ProjectForm = () => {
           link: values.link,
         }),
       });
+
       const data = await response.json();
 
-      if (data.error) {
-        setValues({ ...values, error: data.error });
+      if (!response.ok) {
+        setValues({ ...values, error: data.error || 'Error submitting project', loading: false });
       } else {
         setValues({
           title: '',
@@ -42,10 +50,11 @@ const ProjectForm = () => {
           link: '',
           success: true,
           error: '',
+          loading: false,
         });
       }
     } catch (err) {
-      setValues({ ...values, error: 'Something went wrong' });
+      setValues({ ...values, error: 'Something went wrong', loading: false });
     }
   };
 
@@ -57,7 +66,7 @@ const ProjectForm = () => {
         {values.success && <p className="success-message">Project added successfully!</p>}
         {values.error && <p className="error-message">{values.error}</p>}
 
-        <form onSubmit={handleSubmit} className="project-form">
+        <form onSubmit={handleSubmit} className="project-form" noValidate>
           <input
             type="text"
             placeholder="Project Title"
@@ -70,7 +79,7 @@ const ProjectForm = () => {
             value={values.description}
             onChange={handleChange('description')}
             required
-          ></textarea>
+          />
           <input
             type="text"
             placeholder="Technologies (e.g. React, Node, MongoDB)"
@@ -85,7 +94,9 @@ const ProjectForm = () => {
             onChange={handleChange('link')}
             required
           />
-          <button type="submit">Submit Project</button>
+          <button type="submit" disabled={values.loading}>
+            {values.loading ? 'Submitting...' : 'Submit Project'}
+          </button>
         </form>
       </div>
     </section>

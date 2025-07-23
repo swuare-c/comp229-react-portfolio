@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { isAuthenticated } from '../auth/auth-helper';
+import { isAuthenticated } from '../auth/authHelper';
 import './QualificationForm.css';
 
 const QualificationForm = () => {
@@ -13,18 +13,18 @@ const QualificationForm = () => {
     loading: false,
   });
 
-  const { token } = isAuthenticated() || {}; // optional: get token if logged in
+  const { token } = isAuthenticated() || {};
 
-  const handleChange = (name) => (e) => {
-    setValues({ ...values, [name]: e.target.value, success: false, error: '' });
+  const handleChange = (field) => (e) => {
+    setValues({ ...values, [field]: e.target.value, success: false, error: '' });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setValues({ ...values, loading: true });
+    setValues({ ...values, loading: true, success: false, error: '' });
 
     try {
-      const response = await fetch('/api/qualifications', {
+      const response = await fetch('/api/qualification', {  // Note: plural or singular? Make sure matches backend
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -66,7 +66,7 @@ const QualificationForm = () => {
         {values.success && <p className="success-message">Qualification added successfully!</p>}
         {values.error && <p className="error-message">{values.error}</p>}
 
-        <form onSubmit={handleSubmit} className="qualification-form">
+        <form onSubmit={handleSubmit} className="qualification-form" noValidate>
           <input
             type="text"
             placeholder="Title (e.g., B.Sc Computer Science)"
