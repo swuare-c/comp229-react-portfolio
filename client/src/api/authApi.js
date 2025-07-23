@@ -1,4 +1,4 @@
-const API_BASE = "http://localhost:5000/api/auth"; // adjust port/backend URL accordingly
+const API_BASE = "/api/auth"; // adjust port/backend URL accordingly
 
 export const signin = async (user) => {
   try {

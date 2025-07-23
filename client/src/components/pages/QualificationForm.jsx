@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { isAuthenticated } from '../auth/auth-helper';
 import './QualificationForm.css';
 
 const QualificationForm = () => {
@@ -9,20 +10,26 @@ const QualificationForm = () => {
     endDate: '',
     success: false,
     error: '',
+    loading: false,
   });
 
+  const { token } = isAuthenticated() || {}; // optional: get token if logged in
+
   const handleChange = (name) => (e) => {
-    setValues({ ...values, [name]: e.target.value });
+    setValues({ ...values, [name]: e.target.value, success: false, error: '' });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setValues({ ...values, success: false, error: '' });
+    setValues({ ...values, loading: true });
 
     try {
-      const response = await fetch('/api/qualification', {
+      const response = await fetch('/api/qualifications', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          ...(token && { Authorization: `Bearer ${token}` }),
+        },
         body: JSON.stringify({
           title: values.title,
           institution: values.institution,
@@ -30,10 +37,11 @@ const QualificationForm = () => {
           endDate: values.endDate,
         }),
       });
+
       const data = await response.json();
 
-      if (data.error) {
-        setValues({ ...values, error: data.error });
+      if (!response.ok) {
+        setValues({ ...values, error: data.error || 'Error adding qualification', loading: false });
       } else {
         setValues({
           title: '',
@@ -42,10 +50,11 @@ const QualificationForm = () => {
           endDate: '',
           success: true,
           error: '',
+          loading: false,
         });
       }
     } catch (err) {
-      setValues({ ...values, error: 'Something went wrong' });
+      setValues({ ...values, error: 'Something went wrong', loading: false });
     }
   };
 
@@ -60,7 +69,7 @@ const QualificationForm = () => {
         <form onSubmit={handleSubmit} className="qualification-form">
           <input
             type="text"
-            placeholder="Title (e.g. B.Sc Computer Science)"
+            placeholder="Title (e.g., B.Sc Computer Science)"
             value={values.title}
             onChange={handleChange('title')}
             required
@@ -74,19 +83,19 @@ const QualificationForm = () => {
           />
           <input
             type="date"
-            placeholder="Start Date"
             value={values.startDate}
             onChange={handleChange('startDate')}
             required
           />
           <input
             type="date"
-            placeholder="End Date"
             value={values.endDate}
             onChange={handleChange('endDate')}
             required
           />
-          <button type="submit">Submit Qualification</button>
+          <button type="submit" disabled={values.loading}>
+            {values.loading ? 'Submitting...' : 'Submit Qualification'}
+          </button>
         </form>
       </div>
     </section>
