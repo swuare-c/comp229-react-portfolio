@@ -1,47 +1,55 @@
+import { useEffect, useState } from 'react';
 import './Projects.css';
 
-const projects = [
-    {
-        title: 'Project One',
-        description: 'This is a brief description of Project One.',
-        image: '/placeholder.jpg',
-        link: '',
-    },
-    {
-        title: 'Project Two',
-        description: 'This is a brief description of Project Two.',
-        image: '/placeholder.jpg',
-        link: '',
-    },
-    {
-        title: 'Project Three',
-        description: 'This is a brief description of Project Three.',
-        image: '/placeholder.jpg',
-        link: '',
-    },
-    {
-        title: 'Project Four',
-        description: 'This is a brief description of Project Four.',
-        image: '/placeholder.jpg',
-        link: '',
-    }
-];
-
 const Projects = () => {
-    return (
-    <section className='projects-section'>
-        <h1 className='projects-header'>My Projects</h1>
-        <section className='projects-container'>
-        {projects.map((project, index) => (
-        <div className='project-card' key={index}>
-            <img src={project.image} alt={project.title} />
+  const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const res = await fetch('/api/projects'); // adjust base URL if needed
+        const data = await res.json();
+
+        if (!res.ok) {
+          throw new Error(data.error || 'Failed to load projects');
+        }
+
+        setProjects(data);
+        setLoading(false);
+      } catch (err) {
+        setError(err.message);
+        setLoading(false);
+      }
+    };
+
+    fetchProjects();
+  }, []);
+
+  return (
+    <section className="projects-section">
+      <h1 className="projects-header">My Projects</h1>
+
+      {loading && <p>Loading projects...</p>}
+      {error && <p className="error-message">{error}</p>}
+
+      <section className="projects-container">
+        {projects.map((project) => (
+          <div className="project-card" key={project._id}>
+            <img src="/placeholder.jpg" alt={project.title} />
             <h2>{project.title}</h2>
             <p>{project.description}</p>
-            <a href={project.link} className='project-link' target='_blank'>View Project</a>
-        </div>
+            {project.link && (
+              <a href={project.link} className="project-link" target="_blank" rel="noopener noreferrer">
+                View Project
+              </a>
+            )}
+          </div>
         ))}
-        </section>
-    </section>)
-}
+      </section>
+    </section>
+  );
+};
 
 export default Projects;
