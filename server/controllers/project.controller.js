@@ -5,7 +5,7 @@ const create = async (req, res) => {
   try {
     const project = new Project(req.body);
     await project.save();
-    res.status(201).json(project);
+    res.status(201).json({ message: "Project created successfully", project });
   } catch (err) {
     res.status(400).json({ error: errorHandler.getErrorMessage(err) });
   }
@@ -37,7 +37,7 @@ const update = async (req, res) => {
   try {
     Object.assign(req.project, req.body);
     await req.project.save();
-    res.json(req.project);
+    res.json({ message: "Project updated successfully", project: req.project });
   } catch (err) {
     res.status(400).json({ error: errorHandler.getErrorMessage(err) });
   }
@@ -46,7 +46,7 @@ const update = async (req, res) => {
 const remove = async (req, res) => {
   try {
     const deleted = await req.project.deleteOne();
-    res.json(deleted);
+    res.json({ message: "Project deleted", deleted });
   } catch (err) {
     res.status(400).json({ error: errorHandler.getErrorMessage(err) });
   }
