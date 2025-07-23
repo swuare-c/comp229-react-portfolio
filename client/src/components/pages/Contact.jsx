@@ -26,7 +26,7 @@ const ContactForm = () => {
     setStatus({ success: false, error: '', loading: true });
 
     try {
-      const response = await fetch('/api/contacts', {
+      const response = await fetch('/api/contactId', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(values),
