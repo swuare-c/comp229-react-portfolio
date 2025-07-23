@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { signin } from '../../api/auth'; // your api helper
-import { authenticate } from '../../helpers/auth.helper'; // your auth helper
+import { signin } from '../../api/authApi';
+import { authenticate } from '../../auth/authHelper';
 import './Signin.css';
 
 const Signin = () => {

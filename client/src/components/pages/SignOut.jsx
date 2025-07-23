@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { signout } from "../../api/auth";  // your signout API helper
-import { clearJWT } from "../../helpers/auth.helper";
+import { signout } from "../../api/authApi";  // your signout API helper
+import { clearJWT } from "../../auth/authHelper";  // your auth helper to clear JWT
 
 const Signout = () => {
   const navigate = useNavigate();

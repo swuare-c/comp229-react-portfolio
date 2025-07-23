@@ -5,8 +5,9 @@ import AboutMe from './components/pages/AboutMe';
 import Projects from './components/pages/Projects';
 import Services from './components/pages/Services';
 import Contact from './components/pages/Contact';
-import Signin from './components/pages/Signin';
-import Signup from './components/pages/Signup';
+import Signin from './components/pages/SignIn';
+import Signup from './components/pages/SignUp';
+import Signout from './components/pages/SignOut';
 
 function App() {
   return (
