@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { signin } from '../../api/auth'; // your api helper
+import { authenticate } from '../../helpers/auth.helper'; // your auth helper
 import './Signin.css';
 
 const Signin = () => {
@@ -8,6 +10,7 @@ const Signin = () => {
     password: '',
     error: '',
     success: false,
+    loading: false,
   });
 
   const navigate = useNavigate();
@@ -18,31 +21,30 @@ const Signin = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setValues({ ...values, loading: true, error: '', success: false });
 
     try {
-      const response = await fetch('/api/auth/signin', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email: values.email,
-          password: values.password
-        }),
-        credentials: 'include'
+      const data = await signin({
+        email: values.email,
+        password: values.password,
       });
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        setValues(prev => ({ ...prev, error: data.error || 'Signin failed' }));
+      if (data.error) {
+        setValues({ ...values, error: data.error, loading: false });
       } else {
-        if (typeof window !== 'undefined') {
-          sessionStorage.setItem('jwt', JSON.stringify(data));
-        }
-        setValues({ email: '', password: '', error: '', success: true });
-        navigate('/');  // redirect after successful login
+        authenticate(data, () => {
+          setValues({
+            email: '',
+            password: '',
+            error: '',
+            success: true,
+            loading: false,
+          });
+          navigate('/');
+        });
       }
     } catch (err) {
-      setValues(prev => ({ ...prev, error: 'Network error. Please try again.' }));
+      setValues({ ...values, error: 'Network error. Please try again.', loading: false });
     }
   };
 
@@ -61,6 +63,7 @@ const Signin = () => {
             value={values.email}
             onChange={handleChange('email')}
             required
+            disabled={values.loading}
           />
           <input
             type="password"
@@ -68,12 +71,16 @@ const Signin = () => {
             value={values.password}
             onChange={handleChange('password')}
             required
+            disabled={values.loading}
           />
-          <button type="submit" className="btn-primary">Sign In</button>
+          <button type="submit" className="btn-primary" disabled={values.loading}>
+            {values.loading ? 'Signing in...' : 'Sign In'}
+          </button>
         </form>
 
         <div className="signin-footer">
-          <p>Don't have an account?
+          <p>
+            Don't have an account?
             <Link to="/Signup" className="btn-secondary"> Sign Up</Link>
           </p>
           <Link to="/" className="btn-secondary">Back to Home</Link>

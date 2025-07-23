@@ -20,6 +20,8 @@ function App() {
         <Route path="/Contact" element={<Contact />} />
         <Route path="/Signin" element={<Signin />} />
         <Route path="/Signup" element={<Signup />} />
+        <Route path="/signout" element={<Signout />} />
+
       </Routes>
     </Router>
   );

@@ -8,36 +8,34 @@ const ContactForm = () => {
     email: '',
     contactnumber: '',
     message: '',
+  });
+
+  const [status, setStatus] = useState({
     success: false,
     error: '',
     loading: false,
   });
 
   const handleChange = (name) => (e) => {
-    setValues({ ...values, [name]: e.target.value, error: '', success: false });
+    setValues({ ...values, [name]: e.target.value });
+    setStatus({ ...status, error: '', success: false });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setValues({ ...values, loading: true, success: false, error: '' });
+    setStatus({ success: false, error: '', loading: true });
 
     try {
       const response = await fetch('/api/contacts', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          firstname: values.firstname,
-          lastname: values.lastname,
-          email: values.email,
-          contactnumber: values.contactnumber,
-          message: values.message,
-        }),
+        body: JSON.stringify(values),
       });
 
       const data = await response.json();
 
       if (data.error) {
-        setValues({ ...values, error: data.error, loading: false });
+        setStatus({ success: false, error: data.error, loading: false });
       } else {
         setValues({
           firstname: '',
@@ -45,13 +43,11 @@ const ContactForm = () => {
           email: '',
           contactnumber: '',
           message: '',
-          success: true,
-          error: '',
-          loading: false,
         });
+        setStatus({ success: true, error: '', loading: false });
       }
     } catch (err) {
-      setValues({ ...values, error: 'Something went wrong', loading: false });
+      setStatus({ success: false, error: 'Something went wrong. Please try again.', loading: false });
     }
   };
 
@@ -60,8 +56,8 @@ const ContactForm = () => {
       <div className="contact-form-container">
         <h2>Contact Me</h2>
 
-        {values.success && <p className="success-message">Message sent successfully!</p>}
-        {values.error && <p className="error-message">{values.error}</p>}
+        {status.success && <p className="success-message">✅ Message sent successfully!</p>}
+        {status.error && <p className="error-message">❌ {status.error}</p>}
 
         <form onSubmit={handleSubmit} className="contact-form" noValidate>
           <label htmlFor="firstname">First Name *</label>
@@ -117,8 +113,8 @@ const ContactForm = () => {
             required
           ></textarea>
 
-          <button type="submit" disabled={values.loading}>
-            {values.loading ? 'Sending...' : 'Send Message'}
+          <button type="submit" disabled={status.loading}>
+            {status.loading ? 'Sending...' : 'Send Message'}
           </button>
         </form>
       </div>

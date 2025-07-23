@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { signup } from '../../api/userApi';
-import './SignUp.css';
 import { Link, useNavigate } from 'react-router-dom';
+import './SignUp.css';
 
 const Signup = () => {
   const [values, setValues] = useState({
@@ -16,22 +16,31 @@ const Signup = () => {
   const navigate = useNavigate();
 
   const handleChange = (field) => (e) => {
-    setValues({ ...values, [field]: e.target.value, error: '', success: false });
+    setValues((prev) => ({
+      ...prev,
+      [field]: e.target.value,
+      error: '',
+      success: false,
+    }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setValues({ ...values, loading: true });
+    setValues((prev) => ({ ...prev, loading: true }));
 
     try {
       const data = await signup({
         name: values.name,
         email: values.email,
-        password: values.password
+        password: values.password,
       });
 
       if (data.error) {
-        setValues({ ...values, error: data.error, loading: false });
+        setValues((prev) => ({
+          ...prev,
+          error: data.error,
+          loading: false,
+        }));
       } else {
         setValues({
           name: '',
@@ -39,12 +48,16 @@ const Signup = () => {
           password: '',
           error: '',
           success: true,
-          loading: false
+          loading: false,
         });
-        setTimeout(() => navigate('/Signin'), 1500); // Redirect after success
+        setTimeout(() => navigate('/Signin'), 1500);
       }
     } catch (err) {
-      setValues({ ...values, error: 'Something went wrong', loading: false });
+      setValues((prev) => ({
+        ...prev,
+        error: 'Something went wrong. Please try again.',
+        loading: false,
+      }));
     }
   };
 
@@ -54,7 +67,9 @@ const Signup = () => {
         <h1>Sign Up</h1>
 
         {values.error && <p className="error-message">{values.error}</p>}
-        {values.success && <p className="success-message">Signup successful! Redirecting...</p>}
+        {values.success && (
+          <p className="success-message">Signup successful! Redirecting...</p>
+        )}
 
         <form onSubmit={handleSubmit} className="signup-form">
           <input
@@ -62,6 +77,7 @@ const Signup = () => {
             placeholder="Name"
             value={values.name}
             onChange={handleChange('name')}
+            autoComplete="name"
             required
           />
           <input
@@ -69,6 +85,7 @@ const Signup = () => {
             placeholder="Email"
             value={values.email}
             onChange={handleChange('email')}
+            autoComplete="email"
             required
           />
           <input
@@ -76,6 +93,7 @@ const Signup = () => {
             placeholder="Password"
             value={values.password}
             onChange={handleChange('password')}
+            autoComplete="new-password"
             required
           />
           <button type="submit" className="btn-primary" disabled={values.loading}>

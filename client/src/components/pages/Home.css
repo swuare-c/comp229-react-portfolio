@@ -1,149 +1,114 @@
-.home-section {
-    padding-top: 150px;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
+.contact-form-section {
+  min-height: 100vh;
+  padding-top: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background-color: #f9f9fb;
 }
 
-@keyframes gradient {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 100%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
+.contact-form-container {
+  width: 75%;
+  max-width: 800px;
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  animation: fadeInUp 0.6s ease-in-out;
 }
 
-.welcome-container {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 750px;
-    width: 75%;
+.contact-form-container h2 {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  color: #333;
+  animation: fadeInLeft 0.6s ease-in-out;
 }
 
-.welcome-container h1 {
-    font-size: 7.5rem;
-    margin: 0;
-    padding-top: 0px;
-    margin-top: -45px;
+.contact-form label {
+  font-size: 1.1rem;
+  margin-bottom: 5px;
+  color: #333;
+  display: block;
+  margin-top: 20px;
 }
 
-.welcome-container h2 {
-    font-size: 5.5rem;
-    margin: 0;
-    padding-top: 20px;
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 1rem;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.3s ease;
 }
 
-.welcome-container h3 {
-    font-size: 3.5rem;
-    margin: 0;
-    color: #7674ff;
-    margin-top: -25px;
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: #7674ff;
 }
 
+.contact-form textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.contact-form button {
+  margin-top: 30px;
+  padding: 12px 24px;
+  background-color: #7674ff;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.contact-form button:hover {
+  background-color: #5a59e5;
+  transform: scale(1.03);
+}
+
+.success-message,
+.error-message {
+  margin-top: -10px;
+  margin-bottom: 20px;
+  font-size: 1rem;
+  padding: 12px 16px;
+  border-radius: 8px;
+}
+
+.success-message {
+  background-color: #e6f9e6;
+  color: #2e7d32;
+}
+
+.error-message {
+  background-color: #ffeaea;
+  color: #c62828;
+}
+
+/* Animations */
 @keyframes fadeInLeft {
-    from {
-        opacity: 0;
-        transform: translateX(-100px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
-@keyframes fadeInRight {
-    from {
-        opacity: 0;
-        transform: translateX(100px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-.welcome-container h1 {
-    animation: fadeInRight 0.6s ease-in-out backwards;
-}
-
-.welcome-container h2 {
-    animation: fadeInLeft 0.6s ease-in-out backwards;
-}
-
-.welcome-container h3 {
-    animation: fadeInLeft 0.6s ease-in-out backwards;
-}
-
-.welcome-container h1, .welcome-container h2, .welcome-container h3{
-    transition: transform 0.6s ease;
-    will-change: transform;
-}
-
-.welcome-container h1:hover, .welcome-container h2:hover, .welcome-container h3:hover{
-    transform: scaleX(1.05);
-    box-shadow: #1c1c313e;
-    transition: transform 0.3s ease;
-}
-
-.home-buttons {
-    display: flex;
-    justify-content: center;
-    margin-top: 30px;
-    gap: 50px;
-    font-size: 2rem;
-    font-weight: 400;
-}
-
-.home-buttons .btn-primary {
-    padding: 8px 16px;
-    background-color: #7674ff;
-    border-radius: 5px;
-    overflow: hidden;
-    transition: 0.1s ease;
-    animation: fadeInLeft 0.6s ease-in-out backwards;
-}
-
-.home-buttons .btn-primary:hover {
-    transform: scaleX(1.05);
-    box-shadow: #1c1c313e;
-}
-
-.home-buttons .btn-secondary {
-    padding: 8px 16px;
-    border: solid 2px #7674ff;
-    border-radius: 5px;
-    overflow: hidden;
-    transition: 0.1s ease;
-    animation: fadeInRight 0.6s ease-in-out backwards;
-}
-
-.home-buttons .btn-secondary:hover {
-    transform: scaleX(1.05);
-    box-shadow: #1c1c313e;
-}
-
-.social-icons {
-    display: flex;
-    justify-content: flex-start;
-    margin-top: 20px;
-    gap: 20px;
-    width: 100%;
-    margin-left: 30%;
-}
-
-.social-icons a {
-    color: #ffffff;
-    transition: 0.1s ease;
-}
-
-.social-icons a:hover {
-    color: #7674ff;
-    transform: scale(1.1);
-    box-shadow: #1c1c313e;
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
