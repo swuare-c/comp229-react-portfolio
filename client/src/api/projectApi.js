@@ -1,4 +1,5 @@
-const API_BASE = "/api/projects"; 
+const API_BASE = "http://localhost:5000/api/projects";
+
 
 // Create a new project
 export const createProject = async (project) => {

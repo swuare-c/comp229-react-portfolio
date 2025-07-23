@@ -1,6 +1,6 @@
-const API_BASE = "/api/auth"; // Adjust if backend runs on different URL or port
+const API_BASE = "http://localhost:5000/api/auth";
 
-// Sign in user with email and password
+
 export const signin = async (user) => {
   try {
     const response = await fetch(`${API_BASE}/signin`, {
@@ -9,7 +9,7 @@ export const signin = async (user) => {
         "Accept": "application/json",
         "Content-Type": "application/json",
       },
-      credentials: "include", // send cookies if any (e.g., for JWT in cookies)
+      credentials: "include",
       body: JSON.stringify(user),
     });
     return await response.json();

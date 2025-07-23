@@ -1,29 +1,35 @@
-const API_BASE = '/api/contacts';
+const API_BASE = "http://localhost:5000/api/contacts";
 
-// Create Contact
-export const createContact = async (contactData) => {
+
+// Create a new contact
+export const createContact = async (contact) => {
   try {
     const response = await fetch(API_BASE, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(contactData),
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(contact),
     });
     return await response.json();
-  } catch (err) {
-    console.error('Error creating contact:', err);
-    throw err;
+  } catch (error) {
+    console.error("Error creating contact:", error);
+    throw error;
   }
 };
 
-// Get All Contacts (Admin use)
-export const listContacts = async () => {
+// Get all contacts
+export const getContacts = async () => {
   try {
     const response = await fetch(API_BASE, {
-      method: 'GET',
+      method: "GET",
+      headers: {
+        "Accept": "application/json",
+      },
     });
     return await response.json();
-  } catch (err) {
-    console.error('Error fetching contacts:', err);
-    throw err;
+  } catch (error) {
+    console.error("Error fetching contacts:", error);
+    throw error;
   }
 };
