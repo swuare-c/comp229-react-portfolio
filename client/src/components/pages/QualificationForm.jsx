@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { isAuthenticated } from '../auth/authHelper';
+import { isAuthenticated } from '../../auth/authHelper.js';
 import './QualificationForm.css';
 
 const QualificationForm = () => {

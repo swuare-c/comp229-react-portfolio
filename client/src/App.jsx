@@ -8,6 +8,8 @@ import Contact from './components/pages/Contact';
 import Signin from './components/pages/SignIn';
 import Signup from './components/pages/SignUp';
 import Signout from './components/pages/SignOut';
+import ProjectForm from './components/pages/ProjectForm';
+import QualificationForm from './components/pages/QualificationForm';
 
 function App() {
   return (
@@ -22,6 +24,8 @@ function App() {
         <Route path="/Signin" element={<Signin />} />
         <Route path="/Signup" element={<Signup />} />
         <Route path="/signout" element={<Signout />} />
+        <Route path="/ProjectForm" element={<ProjectForm />} />
+        <Route path="/QualificationForm" element={<QualificationForm />} />
 
       </Routes>
     </Router>

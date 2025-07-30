@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { isAuthenticated } from '../auth/authHelper'; // To get token for auth
+import { isAuthenticated } from '../../auth/authHelper'; // To get token for auth
 import './ProjectForm.css';
 
 const ProjectForm = () => {
