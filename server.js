@@ -35,7 +35,7 @@ app.get("/", (req, res) => {
   res.json({ message: "🌐 Backend API working: Portfolio Project" });
 });
 
-const PORT = config.port;
+const PORT = config.port || 5000;
 
 app.listen(PORT, (err) => {
   if (err) {
