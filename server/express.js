@@ -21,6 +21,10 @@ app.use(helmet());
 
 app.use(express.static(path.join(CURRENT_WORKING_DIR, "client", "dist")));
 
+app.get("*", (req, res) => {
+  res.sendFile(path.join(CURRENT_WORKING_DIR, "client", "dist", "index.html"));
+});
+
 app.use((err, req, res, next) => {
   if (err.name === "UnauthorizedError") {
     res.status(401).json({ error: err.name + ": " + err.message });
