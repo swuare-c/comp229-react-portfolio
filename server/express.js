@@ -19,7 +19,7 @@ app.use(cookieParser());
 app.use(compress());
 app.use(helmet());
 
-app.use(express.static(path.join(CURRENT_WORKING_DIR, "dist", "app")));
+app.use(express.static(path.join(CURRENT_WORKING_DIR, "client", "app")));
 
 app.use((err, req, res, next) => {
   if (err.name === "UnauthorizedError") {
