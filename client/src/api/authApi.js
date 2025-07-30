@@ -1,17 +1,18 @@
 const API_BASE = "http://localhost:5000/api/auth";
 
-
+// Sign in user
 export const signin = async (user) => {
   try {
     const response = await fetch(`${API_BASE}/signin`, {
       method: "POST",
       headers: {
-        "Accept": "application/json",
+        Accept: "application/json",
         "Content-Type": "application/json",
       },
       credentials: "include",
       body: JSON.stringify(user),
     });
+
     return await response.json();
   } catch (error) {
     console.error("Error during signin:", error);
@@ -26,6 +27,7 @@ export const signout = async () => {
       method: "GET",
       credentials: "include",
     });
+
     return await response.json();
   } catch (error) {
     console.error("Error during signout:", error);
